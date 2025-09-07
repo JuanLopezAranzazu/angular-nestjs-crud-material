@@ -1,0 +1,25 @@
+<app-error-message
+  *ngIf="errorMessage"
+  [message]="errorMessage"
+  icon="warning"
+></app-error-message>
+
+<app-loading-spinner
+  *ngIf="loading"
+  message="Cargando eventos..."
+></app-loading-spinner>
+
+<div *ngIf="!loading" class="content-container">
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="handleCreate()">
+      <mat-icon>add</mat-icon>
+      Nuevo Evento
+    </button>
+  </div>
+
+  <app-event-table
+    [events]="events"
+    (edit)="handleEdit($event)"
+    (delete)="handleDelete($event)"
+  ></app-event-table>
+</div>

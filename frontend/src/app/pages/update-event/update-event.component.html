@@ -1,0 +1,18 @@
+<app-error-message
+  *ngIf="errorMessage"
+  [message]="errorMessage"
+  icon="warning"
+></app-error-message>
+
+<app-loading-spinner
+  *ngIf="loading"
+  message="Cargando evento..."
+></app-loading-spinner>
+
+<div *ngIf="!loading && event">
+  <app-event-form
+    [initialData]="event"
+    [loadingForm]="loadingForm"
+    (formSubmit)="onUpdate($event)"
+  ></app-event-form>
+</div>

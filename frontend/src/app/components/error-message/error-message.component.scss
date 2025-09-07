@@ -1,0 +1,15 @@
+.error-card {
+  padding: 1rem;
+  background-color: #fdecea;
+  color: #b71c1c;
+  margin: 1rem 0;
+
+  mat-icon {
+    margin-right: 0.5rem;
+  }
+
+  mat-card-content {
+    display: flex;
+    align-items: center;
+  }
+}

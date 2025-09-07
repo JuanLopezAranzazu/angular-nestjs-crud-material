@@ -1,0 +1,10 @@
+<app-error-message
+  *ngIf="errorMessage"
+  [message]="errorMessage"
+  icon="warning"
+></app-error-message>
+
+<app-event-form
+  [loadingForm]="loadingForm"
+  (formSubmit)="onCreate($event)"
+></app-event-form>
