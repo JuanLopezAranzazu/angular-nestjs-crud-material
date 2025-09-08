@@ -9,14 +9,7 @@
   message="Cargando eventos..."
 ></app-loading-spinner>
 
-<div *ngIf="!loading" class="content-container">
-  <div class="actions">
-    <button mat-raised-button color="primary" (click)="handleCreate()">
-      <mat-icon>add</mat-icon>
-      Nuevo Evento
-    </button>
-  </div>
-
+<div *ngIf="!loading">
   <app-event-table
     [events]="events"
     (edit)="handleEdit($event)"

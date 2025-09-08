@@ -55,11 +55,12 @@
         <mat-error *ngIf="f['endDate'].hasError('required')"
           >La fecha final es requerida</mat-error
         >
+        <mat-error
+          *ngIf="eventForm.get('endDate')?.hasError('dateRangeInvalid')"
+        >
+          La fecha final debe ser mayor que la inicial</mat-error
+        >
       </mat-form-field>
-
-      <mat-error *ngIf="eventForm.errors?.['dateRangeInvalid']">
-        La fecha final debe ser mayor que la inicial.</mat-error
-      >
 
       <button
         mat-raised-button

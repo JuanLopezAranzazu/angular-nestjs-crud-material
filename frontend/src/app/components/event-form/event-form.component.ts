@@ -53,16 +53,27 @@ export class EventFormComponent implements OnInit {
     );
   }
 
+  // validar que la fecha final > fecha inicial
   dateRangeValidator(control: AbstractControl): ValidationErrors | null {
     const start = control.get('startDate')?.value;
     const end = control.get('endDate')?.value;
 
     if (start && end && new Date(start) > new Date(end)) {
+      control.get('endDate')?.setErrors({ dateRangeInvalid: true });
       return { dateRangeInvalid: true };
+    } else {
+      const errors = control.get('endDate')?.errors;
+      if (errors) {
+        delete errors['dateRangeInvalid'];
+        if (Object.keys(errors).length === 0) {
+          control.get('endDate')?.setErrors(null);
+        }
+      }
     }
     return null;
   }
 
+  // enviar el formulario
   submitForm(): void {
     if (this.eventForm.valid) {
       this.formSubmit.emit(this.eventForm.value);
