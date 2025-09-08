@@ -8,6 +8,7 @@ import { EventTableComponent } from '../../components/event-table/event-table.co
 import { Router } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-events',
@@ -27,7 +28,11 @@ export class EventsComponent implements OnInit {
   loading = false;
   errorMessage = '';
 
-  constructor(private eventsService: EventsService, private router: Router) {}
+  constructor(
+    private eventsService: EventsService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.getEvents();
@@ -68,10 +73,16 @@ export class EventsComponent implements OnInit {
     this.eventsService.deleteEvent(event.id).subscribe({
       next: () => {
         this.events = this.events.filter((e) => e.id !== event.id);
+        this.snackBar.open('Evento eliminado exitosamente', 'Cerrar', {
+          duration: 3000,
+        });
       },
       error: (err) => {
         console.error(err);
         this.errorMessage = err.error?.message || 'Error al eliminar el evento';
+        this.snackBar.open(this.errorMessage, 'Cerrar', {
+          duration: 4000,
+        });
       },
     });
   }

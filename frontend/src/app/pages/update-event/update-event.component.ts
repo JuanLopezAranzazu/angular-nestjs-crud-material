@@ -6,6 +6,7 @@ import { EventModel, UpdateEventDto } from '../../types/event.type';
 import { EventFormComponent } from '../../components/event-form/event-form.component';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner.component';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-update-event',
@@ -27,7 +28,8 @@ export class UpdateEventComponent implements OnInit {
   constructor(
     private eventsService: EventsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   // obtener el evento
@@ -74,12 +76,18 @@ export class UpdateEventComponent implements OnInit {
     this.eventsService.updateEvent(this.event.id, event).subscribe({
       next: (res) => {
         console.log(res);
+        this.snackBar.open('Evento actualizado exitosamente', 'Cerrar', {
+          duration: 3000,
+        });
         this.router.navigate(['/']);
       },
       error: (err) => {
         console.error(err);
         this.errorMessage =
           err.error?.message || 'Error al actualizar el evento';
+        this.snackBar.open(this.errorMessage, 'Cerrar', {
+          duration: 4000,
+        });
         this.loadingForm = false;
       },
       complete: () => {
